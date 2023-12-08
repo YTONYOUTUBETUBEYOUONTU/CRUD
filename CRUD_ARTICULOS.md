@@ -116,5 +116,101 @@ if ($_POST) {
     </div>
 </div>
 ```
+## `Read.php`
+El código proporcionado es para el archivo `readart.php` que muestra la lista de artículos. Este archivo incluye un encabezado (header.php), establece una conexión a la base de datos, ejecuta una consulta para obtener los artículos, y luego muestra una tabla con la información de cada artículo, incluida una opción para actualizar o eliminar cada uno. También incluye un modal (createart.php) para agregar nuevos artículos y utiliza un script JavaScript para confirmar la eliminación de un artículo. Finalmente, incluye el pie de página (footer.php).
+- Código `readart.php`:
+```php
+<?php
+include "header.php";
+include "connection.php";
+$stmt = $conn->prepare("SELECT * FROM articulos");
+$stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 
-  
+<div class="row">
+  <div class="col-md-8">
+    <h1>Articulos</h1>
+  </div>
+  <div class="col-md-2">
+    <h1>
+    <a href="index.php" class="btn btn-info">
+      <i class="bi bi-house-up-fill"></i> Principal
+    </a>
+    </h1>
+  </div>
+  <div class="col-md-2">
+    <h1>
+      <button type="button" class="btn btn-primary data" data-bs-toggle="modal" data-bs-target="#createart">
+        <i class="bi bi-database-add"></i> Nuevo Articulo
+      </button>
+    </h1>
+  </div>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th width="20">ID</th>
+      <th width="200">Nombre</th>
+      <th width="400">Descripcion</th>
+      <th width="20">Costo</th>
+      <th width="20">Precio</th>
+      <th width="20">Cantidad</th>
+      <th width="200">Imagen</th>
+      <th width="100">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    foreach ($results as $result) {
+      ?>
+      <tr>
+        <td>
+          <?php echo $result['id']; ?>
+        </td>
+        <td>
+          <?php echo $result['nombre']; ?>
+        </td>
+        <td>
+          <?php echo $result['descripcion']; ?>
+        </td>
+        <td>
+          <?php echo $result['costo']; ?>
+        </td>
+        <td>
+          <?php echo $result['precio']; ?>
+        </td>
+        <td>
+          <?php echo $result['cantidad']; ?>
+        </td>
+        <td>
+          <?php
+          if (!empty($result['imagen'])) {
+            // La LINEA 48 ES LA SIGUIENTE
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($result['imagen']) . '" alt="Imagen del artículo" style="max-width: 200px; max-height: 200px;">';
+          } else {
+            echo 'No se encontró la imagen';
+          }
+          ?>
+        </td>
+        <td>
+          <a href="updateart.php?id=<?php echo $result['id']; ?>" class="btn btn-warning btn-sm"><i
+              class="bi bi-pencil-fill"></i></a>
+          <a onclick="return confirm_delete()" href="deleteart.php?id=<?php echo $result['id']; ?>"
+            class="btn btn-danger btn-sm">
+            <i class="bi bi-trash-fill"></i></a>
+        </td>
+      </tr>
+    <?php } ?>
+    <script type="text/javascript">
+      function confirm_delete() {
+        return window.confirm('¿Estás seguro de eliminar el siguiente artículo?');
+      }
+    </script>
+  </tbody>
+</table>
+<?php
+include "createart.php";
+include "footer.php";
+?>
+```
