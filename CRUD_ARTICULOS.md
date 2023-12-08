@@ -316,3 +316,18 @@ include "header.php";
 include "footer.php";
 ?>
 ```
+## `Delete.php`
+El código deleteart.php, que se encarga de eliminar un artículo de la base de datos utilizando el ID que es proporcionado a través de la URL. El código utiliza la sentencia DELETE de SQL para eliminar el registro y luego redirige a la página de lectura de artículos (readart.php). Este proceso garantiza que los datos sean eliminados correctamente (solo un dato).
+- Código `deleteart.php`:
+```php
+<?php
+include "connection.php";
+if (isset($_GET['id'])) {
+    $id=(isset($_GET['id']) ? $_GET['id'] : "");
+    $stmt = $conn->prepare("DELETE FROM articulos WHERE id=:id");
+    $stmt->bindParam(":id",$id);
+    $stmt->execute();
+    header('location: readart.php');
+}
+?>
+```
