@@ -215,7 +215,7 @@ include "footer.php";
 ?>
 ```
 ## `Update.php`
-El segmento de codigo de updateart.php, que se encarga de actualizar la información de un artículo en la base de datos. El código incluye la recuperación de la información actual del artículo, la ejecución de la actualización y la presentación de mensajes de éxito o error. También contiene un formulario para ingresar la nueva información del artículo.
+El segmento de codigo de `updateart.php`, que se encarga de actualizar la información de un artículo en la base de datos. El código incluye la recuperación de la información actual del artículo, la ejecución de la actualización y la presentación de mensajes de éxito o error. También contiene un formulario para ingresar la nueva información del artículo.
 - Código `updateart.php`:
 ```php
 <?php
@@ -317,7 +317,7 @@ include "footer.php";
 ?>
 ```
 ## `Delete.php`
-El código deleteart.php, que se encarga de eliminar un artículo de la base de datos utilizando el ID que es proporcionado a través de la URL. El código utiliza la sentencia DELETE de SQL para eliminar el registro y luego redirige a la página de lectura de artículos (readart.php). Este proceso garantiza que los datos sean eliminados correctamente (solo un dato).
+El código `deleteart.php`, que se encarga de eliminar un artículo de la base de datos utilizando el ID que es proporcionado a través de la URL. El código utiliza la sentencia DELETE de SQL para eliminar el registro y luego redirige a la página de lectura de artículos (readart.php). Este proceso garantiza que los datos sean eliminados correctamente (solo un dato).
 - Código `deleteart.php`:
 ```php
 <?php
